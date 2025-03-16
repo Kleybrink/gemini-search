@@ -7,8 +7,9 @@ WORKDIR /app
 # Kopiere package.json und package-lock.json
 COPY package*.json ./
 
-# Installiere Abhängigkeiten
-RUN npm install
+# Installiere Abhängigkeiten ohne Cache und stelle sicher, dass esbuild für ARM64 installiert wird
+RUN npm install --no-cache
+RUN npm install esbuild --platform=linux --arch=arm64
 
 # Kopiere den restlichen Anwendungscode
 COPY . .
